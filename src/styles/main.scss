@@ -1,0 +1,48 @@
+@use './variables' as *;
+
+* { box-sizing: border-box; }
+html, body, #root { height: 100%; }
+body {
+  margin: 0;
+  background: $bg-soft;
+  color: $text;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, 'Helvetica Neue', Arial, 'Noto Sans', 'Apple Color Emoji', 'Segoe UI Emoji';
+}
+
+.page {
+  &__wrap {
+    padding: 16px;
+    display: grid;
+    gap: 16px;
+  }
+  &__title {
+    margin: 0;
+  }
+}
+
+.btn {
+  appearance: none;
+  border: $border;
+  background: $bg;
+  color: $text;
+  padding: 8px 12px;
+  border-radius: $radius;
+  cursor: pointer;
+
+  &:disabled { opacity: .5; cursor: not-allowed; }
+}
+
+.select, .input {
+  padding: 8px 12px;
+  border: $border;
+  border-radius: $radius;
+  background: $bg;
+  color: $text;
+}
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}

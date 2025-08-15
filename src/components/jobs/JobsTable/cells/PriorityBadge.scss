@@ -1,0 +1,11 @@
+@use '../../../../styles/variables' as *;
+
+.pill {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: $bg-soft;
+  font-size: 12px;
+
+  &--high    { color: #b45309; }
+  &--regular { color: #334155; }
+}

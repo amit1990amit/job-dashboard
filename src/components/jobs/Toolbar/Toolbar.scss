@@ -1,0 +1,8 @@
+@use '../../../styles/variables' as *;
+
+.toolbar {
+  display: flex;
+  gap: 12px;
+  align-items: center;
+  flex-wrap: wrap;
+}

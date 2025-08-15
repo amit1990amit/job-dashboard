@@ -1,0 +1,21 @@
+@use '../../../../styles/variables' as *;
+
+.progress {
+  width: 160px; height: 10px;
+  border-radius: 999px;
+  background: #e5e7eb;
+  position: relative;
+  overflow: hidden;
+
+  &--success { background: #dcfce7; }
+  &--danger  { background: #fee2e2; }
+
+  &__bar {
+    height: 100%;
+    background: $primary;
+    border-radius: 999px;
+    transition: width .3s ease;
+  }
+  &--success .progress__bar { background: $success; }
+  &--danger  .progress__bar { background: $danger; }
+}

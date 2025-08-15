@@ -1,0 +1,7 @@
+@use '../../../styles/variables' as *;
+
+.statusSummary {
+  display: grid;
+  gap: 12px;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+}

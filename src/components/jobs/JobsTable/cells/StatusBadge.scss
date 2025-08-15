@@ -1,0 +1,15 @@
+@use '../../../../styles/variables' as *;
+
+.badge {
+  padding: 2px 8px;
+  border-radius: 999px;
+  background: $bg-muted;
+  font-size: 12px;
+
+  &--running  { color: $primary; }
+  &--success  { color: $success; }
+  &--danger   { color: $danger; }
+  &--warn     { color: $warn; }
+  &--neutral  { color: $neutral; }
+  &--stopped  { color: $stopped; }
+}

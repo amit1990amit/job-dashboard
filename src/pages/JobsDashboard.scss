@@ -1,0 +1,10 @@
+@import '../styles/variables';
+
+.jobs {
+  &__empty {
+    padding: 24px;
+    border: 1px dashed #cbd5e1;
+    border-radius: $radius;
+    background: $bg;
+  }
+}

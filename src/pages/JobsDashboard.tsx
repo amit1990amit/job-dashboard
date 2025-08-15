@@ -13,6 +13,7 @@ export default function JobsDashboard() {
   const stop = useStopJob();
   const restart = useRestartJob();
   const remove = useDeleteJob();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const bulkDelete = useDeleteJobsByStatus();
 
   const [selectedStatus, setSelectedStatus] = useState<JobStatus | undefined>(undefined);
@@ -64,10 +65,6 @@ export default function JobsDashboard() {
       <Toolbar
         search={query}
         onSearchChange={setQuery}
-        onCreateClick={() => {
-          // TODO: open Create Job modal (coming next)
-          alert('Open Create Job Modal (coming next)');
-        }}
       />
       <JobsTable
         rows={filtered}

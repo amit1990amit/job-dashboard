@@ -1,11 +1,11 @@
 import React from 'react';
 import './CreateJobButton.scss';
+import useCreateJobDialog from '../../../modal/CreateJobModal/useCreateJobDialog';
 
-type Props = { onClick: () => void };
-
-const CreateJobButton = ({ onClick }: Props) => {
+const CreateJobButton = () => {
+  const { openCreateJob } = useCreateJobDialog();
   return (
-    <button type="button" className="btn createJobBtn" onClick={onClick}>
+    <button type="button" className="btn createJobBtn"  onClick={() => openCreateJob()}>
       + Create Job
     </button>
   );

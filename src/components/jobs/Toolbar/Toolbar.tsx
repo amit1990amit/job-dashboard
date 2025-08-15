@@ -6,14 +6,13 @@ import CreateJobButton from './CreateJobButton';
 type Props = {
   search: string;
   onSearchChange: (v: string) => void;
-  onCreateClick: () => void;
 };
 
-const Toolbar = ({ search, onSearchChange, onCreateClick }: Props) => {
+const Toolbar = ({ search, onSearchChange }: Props) => {
   return (
     <div className="toolbar">
       <SearchBar value={search} onChange={onSearchChange} placeholder="Search by job name…" />
-      <CreateJobButton onClick={onCreateClick} />
+      <CreateJobButton />
     </div>
   );
 };

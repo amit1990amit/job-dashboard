@@ -1,5 +1,6 @@
 import React from 'react';
 import './ConfirmModal.scss';
+import { useTranslation } from 'react-i18next';
 
 type Props = {
   title: string;
@@ -14,12 +15,13 @@ type Props = {
 const ConfirmModal = ({
   title,
   message,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
+  confirmLabel,
+  cancelLabel,
   onConfirm,
   onRequestClose,
   isLoading,
 }: Props) => {
+  const { t } = useTranslation();
 
   const handleConfirm = () => {
     onConfirm?.();
@@ -32,10 +34,10 @@ const ConfirmModal = ({
       {message && <p className="confirm__message">{message}</p>}
       <div className="modal__actions">
         <button type="button" className="btn" onClick={onRequestClose} disabled={isLoading}>
-          {cancelLabel}
+          {cancelLabel || t('modal.cancel')}
         </button>
         <button type="button" className="btn confirm__primary" onClick={handleConfirm} disabled={isLoading}>
-          {confirmLabel}
+          {confirmLabel || t('modal.confirm')}
         </button>
       </div>
     </div>

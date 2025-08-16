@@ -21,6 +21,7 @@
   "actions.stop": "עצור",
   "actions.restart": "אתחל",
   "actions.delete": "מחק",
+  "actions.deleteJobs": "מחק משימות",
 
   "empty.noJobs": "אין משימות עדיין.",
   "empty.noResults": "אין תוצאות. נסה לנקות את הסינון או החיפוש.",
@@ -36,6 +37,11 @@
   "modal.stop.message": "לעצור את המשימה \"{{name}}\"?",
   "modal.restart.title": "אתחול משימה",
   "modal.restart.message": "לאתחל את המשימה \"{{name}}\"?",
+  "modal.deleteBulk.title": "מחיקת משימות לפי סטטוס",
+  "modal.deleteBulk.status": "סטטוס",
+  "modal.deleteBulk.select": "בחר…",
+  "modal.deleteBulk.note": "זה ימחק לצמיתות את כל המשימות עם הסטטוס שנבחר.",
+  "modal.deleteBulk.deleting": "מוחק…",
 
   "priority.high": "גבוהה",
   "priority.regular": "רגילה",

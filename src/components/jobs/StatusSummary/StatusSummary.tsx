@@ -1,17 +1,9 @@
 import React, { useMemo } from 'react';
 import './StatusSummary.scss';
+import { useTranslation } from 'react-i18next';
 import StatusCard from './StatusCard';
 import { JobStatus } from '../../../types';
 import type { Job } from '../../../types';
-
-const ITEMS = [
-  { label: 'Pending',   status: JobStatus.Pending,   key: 'Pending'   as const },
-  { label: 'In Queue',  status: JobStatus.InQueue,   key: 'InQueue'   as const },
-  { label: 'Running',   status: JobStatus.Running,   key: 'Running'   as const },
-  { label: 'Completed', status: JobStatus.Completed, key: 'Completed' as const },
-  { label: 'Failed',    status: JobStatus.Failed,    key: 'Failed'    as const },
-  { label: 'Stopped',   status: JobStatus.Stopped,   key: 'Stopped'   as const },
-];
 
 type Props = {
   jobs: Job[];
@@ -20,6 +12,17 @@ type Props = {
 };
 
 const StatusSummary = ({ selected, onSelect, jobs }: Props) => {
+  const { t } = useTranslation();
+  
+  const ITEMS = [
+    { label: t('status.Pending'),   status: JobStatus.Pending,   key: 'Pending'   as const },
+    { label: t('status.InQueue'),  status: JobStatus.InQueue,   key: 'InQueue'   as const },
+    { label: t('status.Running'),   status: JobStatus.Running,   key: 'Running'   as const },
+    { label: t('status.Completed'), status: JobStatus.Completed, key: 'Completed' as const },
+    { label: t('status.Failed'),    status: JobStatus.Failed,    key: 'Failed'    as const },
+    { label: t('status.Stopped'),   status: JobStatus.Stopped,   key: 'Stopped'   as const },
+  ];
+
   const counts = useMemo(() => {
       const base = { Pending: 0, InQueue: 0, Running: 0, Completed: 0, Failed: 0, Stopped: 0 };
       for (const job of jobs) {
@@ -32,6 +35,7 @@ const StatusSummary = ({ selected, onSelect, jobs }: Props) => {
       }
       return base;
     }, [jobs]);
+    
   return (
     <div className="statusSummary">
       {ITEMS.map(({ label, status, key }) => (
@@ -47,4 +51,4 @@ const StatusSummary = ({ selected, onSelect, jobs }: Props) => {
   );
 };
 
-export default StatusSummary
+export default StatusSummary;

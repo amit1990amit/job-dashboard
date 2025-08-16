@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 
 import useDeleteBulkDialog from '../../../modal/DeleteBulkModal/useDeleteBulkDialog';
 
@@ -6,6 +7,7 @@ type Props = { disabled?: boolean };
 
 const DeleteBulkButton = ({ disabled }: Props) => {
   const { openDeleteBulk } = useDeleteBulkDialog();
+  const { t } = useTranslation();
 
   return (
     <button
@@ -14,7 +16,7 @@ const DeleteBulkButton = ({ disabled }: Props) => {
       onClick={() => openDeleteBulk()}
       disabled={disabled}
     >
-      Delete Jobs…
+      {t('actions.deleteJobs')}
     </button>
   );
 };

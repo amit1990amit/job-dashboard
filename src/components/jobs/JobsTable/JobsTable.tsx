@@ -1,7 +1,8 @@
 import React from 'react';
 import './JobsTable.scss';
+import { useTranslation } from 'react-i18next';
 import type { Job } from '../../../types';
-import { headers } from './constants';
+import { useHeaders } from './constants';
 import type { SortState } from './types';
 import JobRow from './JobRow';
 
@@ -14,9 +15,11 @@ const JobsTable = ({
   rows: Job[];
   sort: SortState;
   onSort: (s: SortState) => void;
-
   highlight?: string;
 }) => {
+  const { t } = useTranslation();
+  const headers = useHeaders();
+  
   const toggleSort = (key: keyof Job) => {
     if (sort.key === key) onSort({ key, dir: sort.dir === 'asc' ? 'desc' : 'asc' });
     else onSort({ key, dir: 'asc' });
@@ -41,7 +44,7 @@ const JobsTable = ({
                 </span>
               </th>
             ))}
-            <th className="jobsTable__th">Actions</th>
+            <th className="jobsTable__th">{t('table.actions')}</th>
           </tr>
         </thead>
         <tbody>

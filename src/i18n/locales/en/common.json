@@ -21,6 +21,7 @@
   "actions.stop": "Stop",
   "actions.restart": "Restart",
   "actions.delete": "Delete",
+  "actions.deleteJobs": "Delete Jobs",
 
   "empty.noJobs": "No jobs yet.",
   "empty.noResults": "No results. Try clearing filters or search.",
@@ -42,5 +43,11 @@
 
   "language.label": "Language",
   "language.en": "English",
-  "language.he": "Hebrew"
+  "language.he": "Hebrew",
+
+  "modal.deleteBulk.title": "Delete Jobs by Status",
+  "modal.deleteBulk.status": "Status",
+  "modal.deleteBulk.select": "Select…",
+  "modal.deleteBulk.note": "This will permanently delete all jobs with the selected status.",
+  "modal.deleteBulk.deleting": "Deleting…"
 }

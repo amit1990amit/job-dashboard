@@ -5,7 +5,7 @@ import { useJobsQuery } from '../services/useJobs';
 import StatusSummary from '../components/jobs/StatusSummary/StatusSummary';
 import Toolbar from '../components/jobs/Toolbar/Toolbar';
 import { type SortState } from '../components/jobs/JobsTable/types';
-import  JobsTable from '../components/jobs/JobsTable/JobsTable';
+import JobsTable from '../components/jobs/JobsTable/JobsTable';
 import { JobStatus } from '../types';
 import type { Job } from '../types';
 
@@ -47,13 +47,11 @@ const filteredJobs = useMemo(() => {
 }, [jobs, selectedStatus, query, sort]);
 
 
-  if (isLoading) return <div className="page__wrap">Loading…</div>;
-  if (error) return <div className="page__wrap">Error loading jobs</div>;
+  if (isLoading) return <div className="page__wrap">{t('Loading…')}</div>;
+  if (error) return <div className="page__wrap">{t('Error loading jobs')}</div>;
 
   return (
     <div className="page__wrap jobs">
-      {/* <h1 className="page__title">Job Management</h1> */}
-
       <h1 className="page__title">{t('app.title')}</h1>
       <StatusSummary
         jobs={jobs}
@@ -73,7 +71,7 @@ const filteredJobs = useMemo(() => {
 
       {filteredJobs.length === 0 && (
         <div className="jobs__empty">
-          {jobs.length === 0 ? 'No jobs yet.' : 'No results. Try clearing filters or search.'}
+          {jobs.length === 0 ? t('empty.noJobs') : t('empty.noResults')}
         </div>
       )}
     </div>

@@ -1,11 +1,13 @@
 import React, { useState } from 'react';
 import './DeleteBulkModal.scss';
+import { useTranslation } from 'react-i18next';
 import { JobStatus } from '../../types';
 import { useDeleteJobsByStatus } from '../../services/useJobs';
 
 type Props = { onRequestClose: () => void };
 
 const DeleteBulkModal = ({ onRequestClose }: Props) => {
+  const { t } = useTranslation();
   const [status, setStatus] = useState<JobStatus | ''>('');
   const del = useDeleteJobsByStatus();
 
@@ -19,33 +21,30 @@ const DeleteBulkModal = ({ onRequestClose }: Props) => {
 
   return (
     <div className="modal">
-      <div className="modal__header">Delete Jobs by Status</div>
+      <div className="modal__header">{t('modal.deleteBulk.title')}</div>
 
       <form className="deleteBulkForm" onSubmit={onSubmit}>
         <label className="field">
-          <span>Status</span>
+          <span>{t('modal.deleteBulk.status')}</span>
           <select
             className="select"
             value={status === '' ? '' : Number(status)}
             onChange={(e) => setStatus(Number(e.target.value) as JobStatus)}
           >
-            <option value="">Select…</option>
-            {/* Business rule: allow only Completed / Failed */}
-            <option value={JobStatus.Completed}>Completed</option>
-            <option value={JobStatus.Failed}>Failed</option>
+            <option value="">{t('modal.deleteBulk.select')}</option>
+            <option value={JobStatus.Completed}>{t('status.Completed')}</option>
+            <option value={JobStatus.Failed}>{t('status.Failed')}</option>
           </select>
         </label>
 
-        <p className="deleteBulkForm__note">
-          This will permanently delete all jobs with the selected status.
-        </p>
+        <p className="deleteBulkForm__note">{t('modal.deleteBulk.note')}</p>
 
         <div className="modal__actions">
           <button type="button" className="btn" onClick={onRequestClose} disabled={del.isPending}>
-            Cancel
+            {t('modal.cancel')}
           </button>
           <button type="submit" className="btn deleteBulkForm__danger" disabled={disabled}>
-            {del.isPending ? 'Deleting…' : 'Delete'}
+            {del.isPending ? t('modal.deleteBulk.deleting') : t('actions.delete')}
           </button>
         </div>
       </form>

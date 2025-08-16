@@ -1,4 +1,5 @@
 import React from 'react';
+import { useTranslation } from 'react-i18next';
 import { JobStatus } from '../../../../types';
 import type { Job } from '../../../../types';
 import useConfirm from '../../../../modal/ConfirmModal/useConfirm';
@@ -7,6 +8,7 @@ import { useDeleteJob, useRestartJob, useStopJob } from '../../../../services/us
 type Props = { job: Job };
 
 const ActionButtons = ({ job }: Props) => {
+  const { t } = useTranslation();
   // mutations
   const stop = useStopJob();
   const restart = useRestartJob();
@@ -25,9 +27,9 @@ const ActionButtons = ({ job }: Props) => {
 
   const askStop = () => {
     confirm({
-      title: 'Stop Job',
-      message: `Stop job "${job.name}"?`,
-      confirmLabel: 'Stop',
+      title: t('modal.stop.title'),
+      message: t('modal.stop.message', { name: job.name }),
+      confirmLabel: t('actions.stop'),
       isLoading: stop.isPending,
       onConfirm: () => stop.mutate(job.jobID),
     });
@@ -35,9 +37,9 @@ const ActionButtons = ({ job }: Props) => {
 
   const askRestart = () => {
     confirm({
-      title: 'Restart Job',
-      message: `Restart job "${job.name}"?`,
-      confirmLabel: 'Restart',
+      title: t('modal.restart.title'),
+      message: t('modal.restart.message', { name: job.name }),
+      confirmLabel: t('actions.restart'),
       isLoading: restart.isPending,
       onConfirm: () => restart.mutate(job.jobID),
     });
@@ -45,9 +47,9 @@ const ActionButtons = ({ job }: Props) => {
 
   const askDelete = () => {
     confirm({
-      title: 'Delete Job',
-      message: `Delete job "${job.name}"?`,
-      confirmLabel: 'Delete',
+      title: t('modal.delete.title'),
+      message: t('modal.delete.message', { name: job.name }),
+      confirmLabel: t('actions.delete'),
       isLoading: del.isPending,
       onConfirm: () => del.mutate(job.jobID),
     });
@@ -57,17 +59,17 @@ const ActionButtons = ({ job }: Props) => {
     <td className="jobsTable__td jobsTable__actions">
       {canStop && (
         <button type="button" className="btn" onClick={askStop}>
-          Stop
+          {t('actions.stop')}
         </button>
       )}
       {canRestart && (
         <button type="button" className="btn" onClick={askRestart}>
-          Restart
+          {t('actions.restart')}
         </button>
       )}
       {canDelete && (
         <button type="button" className="btn" onClick={askDelete}>
-          Delete
+          {t('actions.delete')}
         </button>
       )}
     </td>

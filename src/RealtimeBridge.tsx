@@ -1,9 +1,12 @@
 import { useEffect } from 'react';
 import { useQueryClient } from '@tanstack/react-query';
-import { attachMockRealtimeToQueryClient } from './services/useJobs';
+import { attachRealtimeToQueryClient } from './services/useJobs';
 
 export default function RealtimeBridge() {
-  const qc = useQueryClient();
-  useEffect(() => { attachMockRealtimeToQueryClient(qc); }, [qc]);
+  const queryClient = useQueryClient();
+  useEffect(() => {
+    const detach = attachRealtimeToQueryClient(queryClient);
+    return detach;
+  }, [queryClient]);
   return null;
 }

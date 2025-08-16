@@ -1,69 +1,41 @@
-# React + TypeScript + Vite
+# ⚡ Job Management Dashboard (React + TS + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A frontend for creating, monitoring, and managing “jobs” with live progress.  
+Runs in **two modes**:
 
-Currently, two official plugins are available:
+- **Mock mode** – in-memory data + simulated real-time updates (no backend needed)
+- **Real mode** – uses your backend **REST API** + **SignalR** hub for real-time
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## ✨ Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- Job list with **search**, **filter by status**, and **sorting**
+- **Create / Stop / Restart / Delete** (with confirm popups)
+- **Bulk delete** by status (Completed / Failed)
+- **Real-time** progress updates (mock bus or SignalR)
+- **React Query** caching + optimistic updates
+- **TypeScript** + **SCSS**
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🔄 Switching Between Mock and Real Backends
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+The app chooses its data source at runtime using **Vite env variables**.
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+### 1) Set the mode in `.env`
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+Create (or edit) a `.env` in the project root:
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+```env
+# --- MODE TOGGLE ---
+# true  = run with in-memory mock data and a mock realtime event bus
+# false = connect to a real REST API and a SignalR hub
+VITE_USE_MOCK=true
+
+# --- REAL MODE ENDPOINTS (required only if VITE_USE_MOCK=false) ---
+# Base URL for the REST API (e.g., https://localhost:5001)
+VITE_API_BASE=https://localhost:5001
+
+# SignalR hub URL (e.g., https://localhost:5001/JobSignalRHub)
+VITE_SIGNALR_HUB=https://localhost:5001/JobSignalRHub

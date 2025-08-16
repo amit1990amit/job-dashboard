@@ -2,9 +2,13 @@ import { useQuery, useMutation, useQueryClient, QueryClient } from '@tanstack/re
 import { MockJobsService, mockBus } from './index';
 import { JobStatus } from '../types';
 import type { CreateJobRequest, Job } from '../types';
+import { RealJobsService } from './real/RealJobsService';
+import { USE_MOCK } from '../config'
 
-/** Service instance simulating API calls */
-const jobsService = new MockJobsService();
+
+
+/** Dynamic Service instance simulating API calls */
+const jobsService = USE_MOCK ? new MockJobsService() : new RealJobsService();
 
 /** React Query cache key for all jobs */
 const JOBS_QUERY_KEY = ['jobs'] as const;
@@ -183,71 +187,52 @@ export function useDeleteJobsByStatus() {
  * Call this **once** at a high level (e.g., in App.tsx after queryClient is created).
  */
 
-// export function attachMockRealtimeToQueryClient(
-//   queryClient: ReturnType<typeof useQueryClient>
-// ) {
-//   mockBus.on('UpdateJobProgress', ({ jobID, status, progress }) => {
-//     queryClient.setQueryData<Job[]>(JOBS_QUERY_KEY, (previousJobs) => {
-//       if (!previousJobs) return previousJobs;
 
-//       return previousJobs.map((job): Job => {
-//         if (job.jobID !== jobID) return job;
-
-//         const completedAt =
-//           status === JobStatus.Completed || status === JobStatus.Failed
-//             ? Date.now()
-//             : job.completedAt;
-
-//         return {
-//           ...job,
-//           status,
-//           progress,
-//           completedAt,
-//         };
-//       });
-//     });
-//   });
-// }
+// Prevent duplicate listeners per QueryClient (StrictMode safe)
 const attachedClients = new WeakSet<QueryClient>();
 
-export function attachMockRealtimeToQueryClient(queryClient: QueryClient) {
-  if (attachedClients.has(queryClient)) {
-    // already attached for this client; no-op and return a noop cleanup
-    return () => {};
-  }
+export function attachRealtimeToQueryClient(queryClient: QueryClient) {
+  if (attachedClients.has(queryClient)) return () => {};
   attachedClients.add(queryClient);
 
-  const handler = ({ jobID, status, progress }: { jobID: string; status: JobStatus; progress: number }) => {
+  const handleUpdate = ({ jobID, status, progress }: { jobID: string; status: JobStatus; progress: number }) => {
     queryClient.setQueryData<Job[]>(JOBS_QUERY_KEY, (prev) => {
       if (!prev) return prev;
 
-      // find the job index once (avoid mapping full array)
       const idx = prev.findIndex((j) => j.jobID === jobID);
       if (idx === -1) return prev;
 
-      const target = prev[idx];
+      const current = prev[idx];
       const completedAt =
         status === JobStatus.Completed || status === JobStatus.Failed
           ? Date.now()
-          : target.completedAt;
+          : current.completedAt;
 
-      // If nothing actually changed, return the same reference to avoid re-renders
-      if (target.status === status && target.progress === progress && target.completedAt === completedAt) {
+      // No-op if nothing changed to avoid extra renders
+      if (current.status === status && current.progress === progress && current.completedAt === completedAt) {
         return prev;
       }
 
-      // shallow-copy the array and replace the single changed element
       const next = prev.slice();
-      next[idx] = { ...target, status, progress, completedAt };
+      next[idx] = { ...current, status, progress, completedAt };
       return next;
     });
   };
 
-  mockBus.on('UpdateJobProgress', handler);
-
-  // Provide cleanup to avoid leaks / duplicate handlers (StrictMode-safe)
-  return () => {
-    mockBus.off('UpdateJobProgress', handler);
-    attachedClients.delete(queryClient);
-  };
+  if (USE_MOCK) {
+    // Mock event bus
+    mockBus.on('UpdateJobProgress', handleUpdate);
+    return () => {
+      mockBus.off('UpdateJobProgress', handleUpdate);
+      attachedClients.delete(queryClient);
+    };
+  } else {
+    // Real SignalR
+    void startSignalR(handleUpdate); // fire-and-forget connect
+    return () => {
+      void stopSignalR();
+      attachedClients.delete(queryClient);
+    };
+  }
 }
+

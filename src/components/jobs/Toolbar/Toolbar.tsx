@@ -2,7 +2,8 @@ import React from 'react';
 import './Toolbar.scss';
 import  SearchBar  from '../../common/SearchBar/SearchBar';
 import CreateJobButton from './CreateJobButton';
-import DeleteBulkButton from './DeleteBulkButton'
+import DeleteBulkButton from './DeleteBulkButton';
+import LanguageSwitcher from '../../common/LanguageSwitcher/LanguageSwitcher';
 
 type Props = {
   search: string;
@@ -15,6 +16,7 @@ const Toolbar = ({ search, onSearchChange }: Props) => {
       <SearchBar value={search} onChange={onSearchChange} placeholder="Search by job name…" />
       <CreateJobButton />
       <DeleteBulkButton />
+      <LanguageSwitcher />
     </div>
   );
 };

@@ -1,0 +1,46 @@
+{
+  "app.title": "Job Management",
+  "search.placeholder": "Search by job name…",
+
+  "status.Pending": "Pending",
+  "status.InQueue": "In Queue",
+  "status.Running": "Running",
+  "status.Completed": "Completed",
+  "status.Failed": "Failed",
+  "status.Stopped": "Stopped",
+
+  "table.jobName": "Job Name",
+  "table.priority": "Priority",
+  "table.status": "Status",
+  "table.progress": "Progress",
+  "table.startTime": "Start Time",
+  "table.endTime": "End Time",
+  "table.actions": "Actions",
+
+  "actions.create": "Create Job",
+  "actions.stop": "Stop",
+  "actions.restart": "Restart",
+  "actions.delete": "Delete",
+
+  "empty.noJobs": "No jobs yet.",
+  "empty.noResults": "No results. Try clearing filters or search.",
+
+  "modal.create.title": "Create Job",
+  "modal.create.name": "Name",
+  "modal.create.priority": "Priority",
+  "modal.cancel": "Cancel",
+  "modal.confirm": "Confirm",
+  "modal.delete.title": "Delete Job",
+  "modal.delete.message": "Delete job \"{{name}}\"?",
+  "modal.stop.title": "Stop Job",
+  "modal.stop.message": "Stop job \"{{name}}\"?",
+  "modal.restart.title": "Restart Job",
+  "modal.restart.message": "Restart job \"{{name}}\"?",
+
+  "priority.high": "High",
+  "priority.regular": "Regular",
+
+  "language.label": "Language",
+  "language.en": "English",
+  "language.he": "Hebrew"
+}

@@ -1,0 +1,46 @@
+{
+  "app.title": "ניהול משימות",
+  "search.placeholder": "חיפוש לפי שם משימה…",
+
+  "status.Pending": "ממתין",
+  "status.InQueue": "בתור",
+  "status.Running": "בריצה",
+  "status.Completed": "הושלם",
+  "status.Failed": "נכשל",
+  "status.Stopped": "נעצר",
+
+  "table.jobName": "שם משימה",
+  "table.priority": "עדיפות",
+  "table.status": "סטטוס",
+  "table.progress": "התקדמות",
+  "table.startTime": "זמן התחלה",
+  "table.endTime": "זמן סיום",
+  "table.actions": "פעולות",
+
+  "actions.create": "צור משימה",
+  "actions.stop": "עצור",
+  "actions.restart": "אתחל",
+  "actions.delete": "מחק",
+
+  "empty.noJobs": "אין משימות עדיין.",
+  "empty.noResults": "אין תוצאות. נסה לנקות את הסינון או החיפוש.",
+
+  "modal.create.title": "יצירת משימה",
+  "modal.create.name": "שם",
+  "modal.create.priority": "עדיפות",
+  "modal.cancel": "ביטול",
+  "modal.confirm": "אישור",
+  "modal.delete.title": "מחיקת משימה",
+  "modal.delete.message": "למחוק את המשימה \"{{name}}\"?",
+  "modal.stop.title": "עצירת משימה",
+  "modal.stop.message": "לעצור את המשימה \"{{name}}\"?",
+  "modal.restart.title": "אתחול משימה",
+  "modal.restart.message": "לאתחל את המשימה \"{{name}}\"?",
+
+  "priority.high": "גבוהה",
+  "priority.regular": "רגילה",
+
+  "language.label": "שפה",
+  "language.en": "אנגלית",
+  "language.he": "עברית"
+}

@@ -1,5 +1,6 @@
 import './JobsDashboard.scss';
 import { useMemo, useState } from 'react';
+import { useTranslation } from 'react-i18next';
 import { useJobsQuery } from '../services/useJobs';
 import StatusSummary from '../components/jobs/StatusSummary/StatusSummary';
 import Toolbar from '../components/jobs/Toolbar/Toolbar';
@@ -10,7 +11,7 @@ import type { Job } from '../types';
 
 export default function JobsDashboard() {
   const { data: jobs = [], isLoading, error } = useJobsQuery();
-
+  const { t } = useTranslation();
   const [selectedStatus, setSelectedStatus] = useState<JobStatus | undefined>(undefined);
   const [query, setQuery] = useState('');
   const [sort, setSort] = useState<SortState>({ key: 'createdAt', dir: 'desc' });
@@ -51,7 +52,9 @@ const filteredJobs = useMemo(() => {
 
   return (
     <div className="page__wrap jobs">
-      <h1 className="page__title">Job Management</h1>
+      {/* <h1 className="page__title">Job Management</h1> */}
+
+      <h1 className="page__title">{t('app.title')}</h1>
       <StatusSummary
         jobs={jobs}
         selected={selectedStatus}

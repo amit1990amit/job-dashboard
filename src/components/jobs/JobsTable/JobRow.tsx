@@ -6,6 +6,7 @@ import StatusBadge from './cells/StatusBadge';
 import PriorityBadge from './cells/PriorityBadge';
 import ProgressBar from './cells/ProgressBar';
 import Highlight from './cells/Highlight';
+import ActionButtons from './cells/ActionButtons';
 
 const JobRow = ({
   job,
@@ -47,17 +48,7 @@ const JobRow = ({
       <td className="jobsTable__td jobsTable__td--nowrap">
         {job.completedAt ? formatTime(job.completedAt) : '—'}
       </td>
-      <td className="jobsTable__td jobsTable__actions">
-        <button className="btn" disabled={!canStop} onClick={() => onStop(job.jobID)}>
-          Stop
-        </button>
-        <button className="btn" disabled={!canRestart} onClick={() => onRestart(job.jobID)}>
-          Restart
-        </button>
-        <button className="btn" disabled={!canDelete} onClick={() => onDelete(job.jobID)}>
-          Delete
-        </button>
-      </td>
+      <ActionButtons job={job} />
     </tr>
   );
 };

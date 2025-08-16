@@ -9,10 +9,9 @@ const sleep = (ms: number) => new Promise(r => setTimeout(r, ms));
 
 export class MockJobsService implements JobsService {
   private jobs: Job[] = [
-    { jobID: uuid(), name: 'Seed Import', status: JobStatus.InQueue, priority: JobPriority.Regular, progress: 0, createdAt: now() },
+      { jobID: uuid(), name: 'Seed Import', status: JobStatus.InQueue, priority: JobPriority.Regular, progress: 0, createdAt: now() },
     { jobID: uuid(), name: 'Daily ETL',  status: JobStatus.Running,  priority: JobPriority.High,    progress: 38, createdAt: now(), startedAt: now() },
-    { jobID: uuid(), name: 'Cleanup',    status: JobStatus.Completed, priority: JobPriority.Regular, progress: 100, createdAt: now()-3e6, startedAt: now()-2.5e6, completedAt: now()-3e5 },
-  ];
+    { jobID: uuid(), name: 'Cleanup',    status: JobStatus.Completed, priority: JobPriority.Regular, progress: 100, createdAt: now()-3e6, startedAt: now()-2.5e6, completedAt: now()-3e5 },];
 
   private timer: number;
 

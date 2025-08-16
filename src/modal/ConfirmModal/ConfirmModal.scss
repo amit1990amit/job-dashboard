@@ -1,0 +1,4 @@
+@use '../../styles/variables' as *;
+
+.confirm__message { margin: 0 0 12px; }
+.confirm__primary { border-color: $primary; color: $primary; }

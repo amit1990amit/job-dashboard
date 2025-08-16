@@ -19,4 +19,4 @@ const Toolbar = ({ search, onSearchChange }: Props) => {
   );
 };
 
-export default Toolbar;
+export default React.memo(Toolbar);

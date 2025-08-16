@@ -9,17 +9,12 @@ const JobsTable = ({
   rows,
   sort,
   onSort,
-  onStop,
-  onRestart,
-  onDelete,
   highlight,
 }: {
   rows: Job[];
   sort: SortState;
   onSort: (s: SortState) => void;
-  onStop: (id: string) => void;
-  onRestart: (id: string) => void;
-  onDelete: (id: string) => void;
+
   highlight?: string;
 }) => {
   const toggleSort = (key: keyof Job) => {
@@ -54,9 +49,6 @@ const JobsTable = ({
             <JobRow
               key={row.jobID}
               job={row}
-              onStop={onStop}
-              onRestart={onRestart}
-              onDelete={onDelete}
               highlight={highlight}
             />
           ))}

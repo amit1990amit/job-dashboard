@@ -1,6 +1,5 @@
 import React from 'react';
 import type { Job } from '../../../types';
-import { JobStatus } from '../../../types';
 import { formatTime } from './utils';
 import StatusBadge from './cells/StatusBadge';
 import PriorityBadge from './cells/PriorityBadge';
@@ -8,26 +7,12 @@ import ProgressBar from './cells/ProgressBar';
 import Highlight from './cells/Highlight';
 import ActionButtons from './cells/ActionButtons';
 
-const JobRow = ({
-  job,
-  onStop,
-  onRestart,
-  onDelete,
-  highlight,
-}: {
+type Props = {
   job: Job;
-  onStop: (id: string) => void;
-  onRestart: (id: string) => void;
-  onDelete: (id: string) => void;
   highlight?: string;
-}) => {
-  const canStop = job.status === JobStatus.Running || job.status === JobStatus.InQueue;
-  const canRestart = job.status === JobStatus.Failed || job.status === JobStatus.Stopped;
-  const canDelete =
-    job.status === JobStatus.Completed ||
-    job.status === JobStatus.Failed ||
-    job.status === JobStatus.Stopped;
+};
 
+const JobRow = ({ job, highlight }: Props) => {
   return (
     <tr className="jobsTable__tr">
       <td className="jobsTable__td">
@@ -49,8 +34,22 @@ const JobRow = ({
         {job.completedAt ? formatTime(job.completedAt) : '—'}
       </td>
       <ActionButtons job={job} />
+
     </tr>
   );
 };
 
-export default JobRow;
+// Only re-render if what we actually display changed
+export default React.memo(JobRow, (prev, next) => {
+  const a = prev.job, b = next.job;
+  return (
+    a.jobID === b.jobID &&
+    a.name === b.name &&
+    a.priority === b.priority &&
+    a.status === b.status &&
+    a.progress === b.progress &&
+    a.startedAt === b.startedAt &&
+    a.completedAt === b.completedAt &&
+    prev.highlight === next.highlight
+  );
+});

@@ -1,16 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import './StatusSummary.scss';
 import StatusCard from './StatusCard';
 import { JobStatus } from '../../../types';
-
-type Counts = {
-  Pending: number;
-  InQueue: number;
-  Running: number;
-  Completed: number;
-  Failed: number;
-  Stopped: number;
-};
+import type { Job } from '../../../types';
 
 const ITEMS = [
   { label: 'Pending',   status: JobStatus.Pending,   key: 'Pending'   as const },
@@ -22,12 +14,24 @@ const ITEMS = [
 ];
 
 type Props = {
-  counts: Counts;
+  jobs: Job[];
   selected?: JobStatus;
   onSelect: (s: JobStatus) => void;
 };
 
-const StatusSummary = ({ counts, selected, onSelect }: Props) => {
+const StatusSummary = ({ selected, onSelect, jobs }: Props) => {
+  const counts = useMemo(() => {
+      const base = { Pending: 0, InQueue: 0, Running: 0, Completed: 0, Failed: 0, Stopped: 0 };
+      for (const job of jobs) {
+        if (job.status === JobStatus.Pending) base.Pending++;
+        else if (job.status === JobStatus.InQueue) base.InQueue++;
+        else if (job.status === JobStatus.Running) base.Running++;
+        else if (job.status === JobStatus.Completed) base.Completed++;
+        else if (job.status === JobStatus.Failed) base.Failed++;
+        else if (job.status === JobStatus.Stopped) base.Stopped++;
+      }
+      return base;
+    }, [jobs]);
   return (
     <div className="statusSummary">
       {ITEMS.map(({ label, status, key }) => (

@@ -1,5 +1,4 @@
 import React from 'react';
-import './CreateJobButton.scss';
 import { useTranslation } from 'react-i18next';
 import useCreateJobDialog from '../../../modal/CreateJobModal/useCreateJobDialog';
 

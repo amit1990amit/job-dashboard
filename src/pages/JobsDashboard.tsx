@@ -1,5 +1,5 @@
 import './JobsDashboard.scss';
-import { useMemo, useState } from 'react';
+import { useMemo, useState, useCallback } from 'react';
 import { useTranslation } from 'react-i18next';
 import { useJobsQuery } from '../services/useJobs';
 import StatusSummary from '../components/jobs/StatusSummary/StatusSummary';
@@ -46,6 +46,11 @@ const filteredJobs = useMemo(() => {
   return result;
 }, [jobs, selectedStatus, query, sort]);
 
+const handleSelect = useCallback((s: JobStatus) => {
+  // functional update = no dependency on selectedStatus
+  setSelectedStatus(prev => (s === prev ? undefined : s));
+}, []);
+
 
   if (isLoading) return <div className="page__wrap">{t('Loading…')}</div>;
   if (error) return <div className="page__wrap">{t('Error loading jobs')}</div>;
@@ -56,7 +61,7 @@ const filteredJobs = useMemo(() => {
       <StatusSummary
         jobs={jobs}
         selected={selectedStatus}
-        onSelect={(s) => setSelectedStatus(s === selectedStatus ? undefined : s)}
+        onSelect={handleSelect}
       />
       <Toolbar
         search={query}

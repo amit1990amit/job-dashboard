@@ -9,7 +9,19 @@ import RealtimeBridge from './RealtimeBridge';
 import './styles/main.scss';
 
 const queryClient = new QueryClient({
-  defaultOptions: { queries: { refetchOnWindowFocus: false } }
+  defaultOptions: { 
+    queries: { 
+      refetchOnWindowFocus: false,
+      onError: (error) => {
+        console.error('Query failed:', error);
+      }
+    },
+    mutations: {
+      onError: (error) => {
+        console.error('Mutation failed:', error);
+      }
+    }
+  }
 });
 
 ReactDOM.createRoot(document.getElementById('root')!).render(

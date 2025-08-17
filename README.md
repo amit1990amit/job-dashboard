@@ -8,6 +8,19 @@ Runs in **two modes**:
 
 ---
 
+## 🚀 Setup & Installation
+
+### Prerequisites
+- **Node.js**: Recommended version **21.7.1** (or higher in the Node 21.x line).  
+  Check your version with:
+  ```bash
+  node -v
+---
+
+## setup 
+npm install
+npm run dev
+
 ## ✨ Features
 
 - Job list with **search**, **filter by status**, and **sorting**
